@@ -13,7 +13,7 @@ from .transport import SocketIO
 
 LOGGER = logging.getLogger(__name__)
 
-URL_RE = re.compile(r'http://([A-Za-z0-9\-\.]+)(?:\:([0-9]+))?(/.+)?')
+URL_RE = re.compile(r'http(s|)://([A-Za-z0-9\-\.]+)(?:\:([0-9]+))?(/.+)?')
 URI = namedtuple('URI', ('hostname', 'port', 'path'))
 
 
@@ -21,7 +21,7 @@ def urlparse(uri):
     """Parse http:// URLs"""
     match = URL_RE.match(uri)
     if match:
-        return URI(match.group(1), int(match.group(2)), match.group(3))
+        return URI(match.group(2), int(match.group(3)), match.group(4))
 
 
 def _connect_http(hostname, port, path):
