@@ -5,6 +5,7 @@ import ulogger as logging
 import ujson as json
 
 import uwebsockets.client
+import uasyncio
 from .protocol import *
 
 LOGGER = logging.getLogger(__name__)
@@ -24,7 +25,7 @@ class SocketIO:
         self._interval_handlers = []
 
         # Register a ping event
-        self.at_interval(params['pingInterval'] // 1000)(self.ping)
+        self.at_interval((params['pingInterval'] // 1000))(self.ping)
 
     def __enter__(self):
         return self
@@ -52,6 +53,8 @@ class SocketIO:
         self._handle_event('connection')
 
         while self.websocket.open or self.reconnect:
+            await uasyncio.sleep(0.5)
+
             if not self.websocket.open:
                 LOGGER.info("Reconnecting")
                 self.websocket = uwebsockets.client.connect(self.uri)
