@@ -30,7 +30,7 @@ CLOSE_TOO_BIG = const(1009)
 CLOSE_MISSING_EXTN = const(1010)
 CLOSE_BAD_CONDITION = const(1011)
 
-URL_RE = re.compile(r'(wss|ws)://([A-Za-z0-9-\.]+)(?:\:([0-9]+))?(/.+)?')
+URL_RE = re.compile(r'(wss|ws|http|https)://([A-Za-z0-9-\.]+)(?:\:([0-9]+))?(/.+)?')
 URI = namedtuple('URI', ('protocol', 'hostname', 'port', 'path'))
 
 class NoDataException(Exception):

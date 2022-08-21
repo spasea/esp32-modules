@@ -65,5 +65,5 @@ class BaseSensor:
             self.load_state(payload)
 
         @self.socketio.at_interval(5)
-        async def handle():
+        def handle():
             self.socketio.emit(self.event_instance.state(), self.get_state())

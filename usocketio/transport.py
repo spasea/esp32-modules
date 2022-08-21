@@ -5,7 +5,7 @@ import ulogger as logging
 import ujson as json
 
 import uwebsockets.client
-import uasyncio
+# import uasyncio
 from .protocol import *
 
 LOGGER = logging.getLogger(__name__)
@@ -42,6 +42,32 @@ class SocketIO:
     def emit(self, event, data):
         self._send_message(MESSAGE_EVENT, (event, data))
 
+    def sync_run_forever(self):
+        """Main loop for SocketIO."""
+        if __debug__:
+            LOGGER.debug("Entering event loop")
+
+        counter = 0
+
+        # send a connection event
+        self._handle_event('connection')
+
+        while self.websocket.open or self.reconnect:
+            if not self.websocket.open:
+                LOGGER.info("Reconnecting")
+                self.websocket = uwebsockets.client.connect(self.uri)
+
+            packet_type, data = self._recv()
+            self._handle_packet(packet_type, data)
+            counter += 1
+
+            for interval, func in self._interval_handlers:
+                if counter % interval == 0:
+                    func()
+
+        if __debug__:
+            LOGGER.debug("Exiting event loop")
+
     async def run_forever(self):
         """Main loop for SocketIO."""
         if __debug__:
@@ -53,7 +79,7 @@ class SocketIO:
         self._handle_event('connection')
 
         while self.websocket.open or self.reconnect:
-            await uasyncio.sleep(0.5)
+            # await uasyncio.sleep(0.5)
 
             if not self.websocket.open:
                 LOGGER.info("Reconnecting")
@@ -126,7 +152,7 @@ class SocketIO:
         self._send_packet(PACKET_MESSAGE, '{}{}'.format(message_type,
                                                         json.dumps(data)))
 
-    async def ping(self):
+    def ping(self):
         if __debug__:
             LOGGER.debug("> ping")
 
