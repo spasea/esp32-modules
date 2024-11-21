@@ -1,14 +1,12 @@
 """SocketIO transport."""
 
-import ulogger as logging
+import ulogger as LOGGER
 
 import ujson as json
 
 import uwebsockets.client
 # import uasyncio
 from .protocol import *
-
-LOGGER = logging.getLogger(__name__)
 
 
 class SocketIO:

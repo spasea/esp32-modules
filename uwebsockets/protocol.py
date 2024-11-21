@@ -2,14 +2,12 @@
 Websockets protocol
 """
 
-import ulogger as logging
+import ulogger as LOGGER
 
 import ure as re
 import ustruct as struct
 import urandom as random
 from ucollections import namedtuple
-
-LOGGER = logging.getLogger(__name__)
 
 # Opcodes
 OP_CONT = const(0x0)

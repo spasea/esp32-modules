@@ -2,7 +2,7 @@
 Micropython Socket.IO client.
 """
 
-import ulogger as logging
+import ulogger as LOGGER
 import ure as re
 import ujson as json
 import usocket as socket
@@ -10,8 +10,6 @@ from ucollections import namedtuple
 
 from .protocol import *
 from .transport import SocketIO
-
-LOGGER = logging.getLogger(__name__)
 
 URL_RE = re.compile(r'http(s|)://([A-Za-z0-9\-\.]+)(?:\:([0-9]+))?(/.+)?')
 URI = namedtuple('URI', ('hostname', 'port', 'path'))

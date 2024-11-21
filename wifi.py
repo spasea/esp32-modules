@@ -1,7 +1,5 @@
-import ulogger as logging
+import ulogger as LOGGER
 import network
-
-LOGGER = logging.getLogger(__name__)
 
 
 class Station:

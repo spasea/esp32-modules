@@ -2,7 +2,7 @@
 Socket.io/Engine.io protocol constructs
 """
 
-import ulogger as logging
+import ulogger as LOGGER
 
 
 PAYLOAD_STRING = const(0)
@@ -24,8 +24,6 @@ MESSAGE_ERROR = const(4)
 MESSAGE_BINARY_EVENT = const(5)
 MESSAGE_BINARY_ACK = const(6)
 
-
-LOGGER = logging.getLogger(__name__)
 
 
 def buff_code(value):

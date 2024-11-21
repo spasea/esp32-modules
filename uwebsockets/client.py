@@ -5,7 +5,7 @@ Based very heavily off
 https://github.com/aaugustin/websockets/blob/master/websockets/client.py
 """
 
-import ulogger as logging
+import ulogger as LOGGER
 
 import usocket as socket
 import ubinascii as binascii
@@ -13,8 +13,6 @@ import urandom as random
 import ussl
 
 from .protocol import Websocket, urlparse
-
-LOGGER = logging.getLogger(__name__)
 
 
 class WebsocketClient(Websocket):
